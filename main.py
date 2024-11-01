@@ -58,6 +58,24 @@ class Main:
         record = ParkingRecord(vehicle, spot)
         self.parking_records.append(record)
         return f"Vehicle {vehicle_license} parked in spot {spot_number}."
+    
+    
+    def delete_vehicle(self, license_plate):
+        vehicle = next((v for v in self.vehicles if v._license_plate == license_plate), None)
+        if vehicle:
+            self.vehicles.remove(vehicle)
+            return f"Vehicle {license_plate} deleted successfully."
+        return "Vehicle not found."
+
+    def update_vehicle(self, license_plate, make, model, year, color):
+        vehicle = next((v for v in self.vehicles if v._license_plate == license_plate), None)
+        if vehicle:
+            vehicle.make = make
+            vehicle.model = model
+            vehicle.year = year
+            vehicle.color = color
+            return f"Vehicle {license_plate} updated successfully."
+        return "Vehicle not found."
 
     def exit_vehicle(self, vehicle_license):
         record = next((r for r in self.parking_records if r.vehicle._license_plate == vehicle_license and r.exit_time is None), None)
